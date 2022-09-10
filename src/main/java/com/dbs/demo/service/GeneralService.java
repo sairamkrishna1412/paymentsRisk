@@ -66,12 +66,13 @@ public class GeneralService {
 	public ResponseEntity<Object> loginHandler(AuthenticateRequest req, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		try {
+			System.out.println(req.toString());
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(req.getUsername(), req.getPassword())
 			);
 		}catch(Exception e) {
 			System.out.println("Authentication Failed");
-			ResponseHandler.generateResponse(400, "Incorrect username or password");
+			return ResponseHandler.generateResponse(400, "Incorrect username or password");
 		}
 		
 		final MyUserDetails userDetails = (MyUserDetails) myUserDetailsService.loadUserByUsername(req.getUsername());
